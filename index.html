@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.S. Daily Weather 2017</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">☀ Light Mode</button>
+    <div id="tooltip" style="display:none"></div>
+
+    <div class="container">
+        <header>
+            <h1>U.S. Daily Weather <span class="year-tag">2017</span></h1>
+            <p class="subtitle">Daily measurements from NOAA weather stations across the United States</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>X Axis</label>
+                <select id="xVariable" class="variable"></select>
+            </div>
+            <div class="control-group">
+                <label>Y Axis</label>
+                <select id="yVariable" class="variable"></select>
+            </div>
+            <div class="control-group">
+                <label>Size</label>
+                <select id="sizeVariable" class="variable"></select>
+            </div>
+            <div class="control-group checkbox-group">
+                <label for="colorByState">Color by State</label>
+                <input type="checkbox" id="colorByState">
+            </div>
+            <div class="control-group checkbox-group">
+                <label for="groupByState">Group by State</label>
+                <input type="checkbox" id="groupByState">
+            </div>
+        </div>
+
+        <div class="slider-section">
+            <label class="slider-label">Month: <span id="monthLabel">January</span></label>
+            <div id="slider"></div>
+        </div>
+
+        <div class="vis-wrapper">
+            <div id="vis"></div>
+            <div id="legend-panel">
+                <div class="legend-title">States</div>
+                <div id="legend-items"></div>
+            </div>
+        </div>
+
+        <div class="write-up">
+            <h2>About This Visualization</h2>
+
+            <h3>Dataset</h3>
+            <p>This dataset contains daily U.S. weather measurements from 2017, provided by the NOAA Daily Global Historical Climatology Network (GHCN). It includes readings from weather stations across all U.S. states and territories, covering temperature, precipitation, snowfall, and wind data.</p>
+
+            <h3>Design Rationale</h3>
+            <p>We use a scatter plot to reveal relationships between weather variables across stations and time. The month slider enables temporal exploration — a key dimension of weather data. Coloring by state (optional) allows geographic grouping. Tooltips provide station-level detail on demand.</p>
+
+            <h3>Interactions</h3>
+            <ul>
+                <li><strong>Month slider</strong> — filters data by month, enabling temporal exploration (dynamic query)</li>
+                <li><strong>Axis dropdowns</strong> — change X, Y, and size variables to explore different variable relationships</li>
+                <li><strong>Tooltips</strong> — hover over any point for station name, state, date, and variable values</li>
+                <li><strong>Color by State toggle</strong> — switch between a temperature-based color scale and state-based coloring</li>
+            </ul>
+
+            <h3>Data Source</h3>
+            <p>NOAA Daily Global Historical Climatology Network (GHCN-Daily), 2017. Provided as part of CMSC471 course materials.</p>
+
+            <h3>Development Process</h3>
+            <p>Built with D3.js v7. Work was split among three team members: data cleaning and variable selection, core scatter plot implementation, and interaction/slider/tooltip features.</p>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

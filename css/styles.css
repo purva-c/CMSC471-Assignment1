@@ -1,0 +1,394 @@
+/* ── Variables ────────────────────────────────────── */
+:root {
+    --bg:        #0f1923;
+    --surface:   #162030;
+    --border:    #2a3a4a;
+    --text:      #d6e4f0;
+    --muted:     #6a8aaa;
+    --accent:    #4fc3f7;
+    --accent2:   #e05c5c;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ── Light Mode ───────────────────────────────────── */
+body.light {
+    --bg:      #f4f7fb;
+    --surface: #ffffff;
+    --border:  #c8d6e5;
+    --text:    #1a2b3c;
+    --muted:   #5a7a9a;
+    --accent:  #0077cc;
+    --accent2: #cc3300;
+}
+
+body.light h1 {
+    color: #0f1923;
+}
+
+body.light #tooltip {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+/* ── Theme Toggle Button ──────────────────────────── */
+.theme-toggle {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    z-index: 100;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ── Reset ────────────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    padding: 2rem 1rem 4rem;
+}
+
+/* ── Layout ───────────────────────────────────────── */
+.container {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+/* ── Header ───────────────────────────────────────── */
+header {
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+}
+
+h1 {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.year-tag {
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+}
+
+/* ── Controls ─────────────────────────────────────── */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.control-group label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+}
+
+.control-group select {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.control-group select:hover,
+.control-group select:focus {
+    border-color: var(--accent);
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-group label {
+    font-size: 0.75rem;
+    margin-top: 2px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* ── Slider ───────────────────────────────────────── */
+.slider-section {
+    margin-bottom: 0.5rem;
+}
+
+.slider-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.slider-label span {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+#slider svg {
+    overflow: visible;
+}
+
+/* d3-simple-slider overrides */
+.slider .track {
+    stroke: var(--border);
+    stroke-width: 4px;
+}
+.slider .track-fill {
+    stroke: var(--accent);
+    stroke-width: 4px;
+}
+.slider .handle {
+    fill: var(--accent);
+    stroke: var(--bg);
+    stroke-width: 2px;
+}
+.slider text {
+    fill: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+/* ── Visualization Layout ─────────────────────────── */
+.vis-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+}
+
+#vis svg {
+    display: block;
+    overflow: visible;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+/* ── Legend Panel ─────────────────────────────────── */
+#legend-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem;
+    min-width: 110px;
+    max-height: 600px;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+#legend-panel::-webkit-scrollbar {
+    width: 4px;
+}
+#legend-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+#legend-panel::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+.legend-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+    cursor: default;
+}
+
+.legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.legend-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text);
+}
+
+/* Temperature gradient legend inside panel */
+.legend-grad-wrap {
+    margin-top: 4px;
+}
+
+.legend-grad-bar {
+    width: 100%;
+    height: 12px;
+    border-radius: 3px;
+    background: linear-gradient(to right,
+        #313695, #4575b4, #74add1, #abd9e9, #e0f3f8,
+        #ffffbf, #fee090, #fdae61, #f46d43, #d73027, #a50026);
+    margin-bottom: 4px;
+}
+
+.legend-grad-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+}
+
+/* ── Axes ─────────────────────────────────────────── */
+.x-axis path,
+.y-axis path,
+.x-axis line,
+.y-axis line {
+    stroke: var(--border);
+    shape-rendering: crispEdges;
+}
+
+.x-axis text,
+.y-axis text {
+    fill: var(--muted);
+    font-size: 11px;
+    font-family: var(--font-mono);
+}
+
+.labels {
+    fill: var(--text);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+.grid line {
+    stroke: var(--border);
+    stroke-opacity: 0.5;
+    shape-rendering: crispEdges;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+
+/* ── Tooltip ──────────────────────────────────────── */
+#tooltip {
+    position: absolute;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text);
+    line-height: 1.6;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    max-width: 240px;
+}
+
+/* ── Write-up ─────────────────────────────────────── */
+.write-up {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.write-up h2 {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.write-up h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin: 1.25rem 0 0.4rem;
+}
+
+.write-up p {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.75;
+}
+
+.write-up ul {
+    padding-left: 1.25rem;
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 2;
+}
+
+.write-up strong {
+    color: var(--accent);
+    font-weight: 600;
+}
